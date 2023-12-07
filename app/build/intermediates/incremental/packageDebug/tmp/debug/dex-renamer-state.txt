@@ -1,4 +1,0 @@
-#Thu Dec 07 17:59:45 CST 2023
-base.0=/Users/aecg/AndroidStudioProjects/nfc-reader1/app/build/intermediates/dex/debug/mergeDexDebug/classes.dex
-path.0=classes.dex
-renamed.0=classes.dex

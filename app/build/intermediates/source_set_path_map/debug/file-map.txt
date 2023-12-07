@@ -1,7 +1,0 @@
-se.anyro.nfc_reader.app-pngs-0 /Users/aecg/AndroidStudioProjects/nfc-reader1/app/build/generated/res/pngs/debug
-se.anyro.nfc_reader.app-resValues-1 /Users/aecg/AndroidStudioProjects/nfc-reader1/app/build/generated/res/resValues/debug
-se.anyro.nfc_reader.app-packageDebugResources-2 /Users/aecg/AndroidStudioProjects/nfc-reader1/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
-se.anyro.nfc_reader.app-packageDebugResources-3 /Users/aecg/AndroidStudioProjects/nfc-reader1/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
-se.anyro.nfc_reader.app-merged_res-4 /Users/aecg/AndroidStudioProjects/nfc-reader1/app/build/intermediates/merged_res/debug
-se.anyro.nfc_reader.app-debug-5 /Users/aecg/AndroidStudioProjects/nfc-reader1/app/src/debug/res
-se.anyro.nfc_reader.app-main-6 /Users/aecg/AndroidStudioProjects/nfc-reader1/app/src/main/res
