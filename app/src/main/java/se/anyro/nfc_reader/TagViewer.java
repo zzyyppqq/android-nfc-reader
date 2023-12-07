@@ -29,9 +29,12 @@ import se.anyro.nfc_reader.record.ParsedNdefRecord;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -49,7 +52,10 @@ import android.nfc.tech.NfcB;
 import android.nfc.tech.NfcF;
 import android.nfc.tech.NfcV;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.Settings;
@@ -67,6 +73,8 @@ import android.widget.Toast;
  */
 public class TagViewer extends Activity {
 
+    public static final String TAG = "ZYPP";
+
     private static final DateFormat TIME_FORMAT = SimpleDateFormat.getDateTimeInstance();
     private LinearLayout mTagContent;
 
@@ -77,6 +85,62 @@ public class TagViewer extends Activity {
     private AlertDialog mDialog;
 
     private List<Tag> mTags = new ArrayList<>();
+
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d(TAG, "接收成功");
+            String action = intent.getAction();
+            if (NfcAdapter.ACTION_ADAPTER_STATE_CHANGED.equals(action)) {
+                getStatus(intent.getIntExtra(NfcAdapter.EXTRA_ADAPTER_STATE, NfcAdapter.STATE_OFF));
+            }
+        }
+
+        private Handler mHandler = new Handler(Looper.getMainLooper());
+        private void getStatus(int state) {
+            Message msg = new Message();
+            switch (state) {
+                case NfcAdapter.STATE_OFF:
+                    msg.obj = "close";
+                    Log.i(TAG, "nfc state: " + state + ", str: " + msg.obj);
+                    if (mAdapter != null) {
+                        if (!mAdapter.isEnabled()) {
+                            mHandler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    NfcUtil.nfcEnable(mAdapter);
+                                }
+                            }, 1000L);
+                        } else {
+                            Log.i("ZYPP", "nfc isEnabled true");
+                        }
+                    } else {
+                        Log.i("ZYPP", "nfc mAdapter = null");
+                    }
+                    break;
+                case NfcAdapter.STATE_ON:
+                    msg.obj = "open";
+                    Log.i(TAG, "nfc state: " + state + ", str: " + msg.obj);
+                    if (mAdapter != null) {
+                        Log.i("ZYPP", "nfc isEnabled " + mAdapter.isEnabled());
+                    } else {
+                        Log.i("ZYPP", "nfc mAdapter = null");
+                    }
+                    closeWirelessSettingsDialog();
+                    break;
+                case NfcAdapter.STATE_TURNING_OFF:
+                    msg.obj = "turning off";
+                    Log.i(TAG, "nfc state: " + state + ", str: " + msg.obj);
+                    break;
+                case NfcAdapter.STATE_TURNING_ON:
+                    msg.obj = "turning on";
+                    Log.i(TAG, "nfc state: " + state + ", str: " + msg.obj);
+                    break;
+            }
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +162,10 @@ public class TagViewer extends Activity {
                 new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
         mNdefPushMessage = new NdefMessage(new NdefRecord[]{newTextRecord(
                 "Message from NFC Reader :-)", Locale.ENGLISH, true)});
+
+
+        IntentFilter intentFilter = new IntentFilter(NfcAdapter.ACTION_ADAPTER_STATE_CHANGED);
+        registerReceiver(mReceiver, intentFilter);
     }
 
     private void showMessage(int title, int message) {
@@ -126,9 +194,11 @@ public class TagViewer extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i("ZYPP", "onResume");
         if (mAdapter != null) {
+            Log.i("ZYPP", "onResume mAdapter isEnabled " + mAdapter.isEnabled());
             if (!mAdapter.isEnabled()) {
-                showWirelessSettingsDialog();
+                //showWirelessSettingsDialog();
             }
             IntentFilter ndef = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
             try {
@@ -148,12 +218,14 @@ public class TagViewer extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
+        Log.i("ZYPP", "onPause");
         if (mAdapter != null) {
             mAdapter.disableForegroundDispatch(this);
             mAdapter.disableForegroundNdefPush(this);
         }
     }
 
+    private AlertDialog mAlertDialog = null;
     private void showWirelessSettingsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.nfc_disabled);
@@ -168,8 +240,16 @@ public class TagViewer extends Activity {
                 finish();
             }
         });
-        builder.create().show();
-        return;
+        mAlertDialog = builder.create();
+        mAlertDialog.show();
+        Log.i("ZYPP", "showWirelessSettingsDialog mAlertDialog: " + mAlertDialog);
+    }
+
+    private void closeWirelessSettingsDialog() {
+        Log.i("ZYPP", "closeWirelessSettingsDialog mAlertDialog: " + mAlertDialog);
+        if (mAlertDialog != null) {
+            mAlertDialog.dismiss();
+        }
     }
 
     private void resolveIntent(Intent intent) {
@@ -203,6 +283,8 @@ public class TagViewer extends Activity {
             //}
             // Setup the views
             buildTagViews(msgs);
+
+            resetNfc();
         }
     }
 
@@ -600,5 +682,12 @@ public class TagViewer extends Activity {
     public void onNewIntent(Intent intent) {
         setIntent(intent);
         resolveIntent(intent);
+    }
+
+    private void resetNfc() {
+        Log.i("ZYPP", "resetNfc mAdapter: " + mAdapter);
+        if (mAdapter != null) {
+            NfcUtil.nfcDisable(mAdapter);
+        }
     }
 }
