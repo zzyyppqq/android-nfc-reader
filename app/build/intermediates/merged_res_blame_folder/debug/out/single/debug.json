@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "se.anyro.nfc_reader.app-merged_res-4:/layout_tag_viewer.xml.flat",
+        "source": "se.anyro.nfc_reader.app-main-6:/layout/tag_viewer.xml"
+    },
+    {
+        "merged": "se.anyro.nfc_reader.app-merged_res-4:/menu_menu_main.xml.flat",
+        "source": "se.anyro.nfc_reader.app-main-6:/menu/menu_main.xml"
+    },
+    {
+        "merged": "se.anyro.nfc_reader.app-merged_res-4:/drawable-ldpi_icon.png.flat",
+        "source": "se.anyro.nfc_reader.app-main-6:/drawable-ldpi/icon.png"
+    },
+    {
+        "merged": "se.anyro.nfc_reader.app-merged_res-4:/layout_tag_text.xml.flat",
+        "source": "se.anyro.nfc_reader.app-main-6:/layout/tag_text.xml"
+    },
+    {
+        "merged": "se.anyro.nfc_reader.app-merged_res-4:/layout_tag_divider.xml.flat",
+        "source": "se.anyro.nfc_reader.app-main-6:/layout/tag_divider.xml"
+    },
+    {
+        "merged": "se.anyro.nfc_reader.app-merged_res-4:/drawable-hdpi_icon.png.flat",
+        "source": "se.anyro.nfc_reader.app-main-6:/drawable-hdpi/icon.png"
+    },
+    {
+        "merged": "se.anyro.nfc_reader.app-merged_res-4:/layout_beam.xml.flat",
+        "source": "se.anyro.nfc_reader.app-main-6:/layout/beam.xml"
+    },
+    {
+        "merged": "se.anyro.nfc_reader.app-merged_res-4:/drawable-mdpi_icon.png.flat",
+        "source": "se.anyro.nfc_reader.app-main-6:/drawable-mdpi/icon.png"
+    }
+]

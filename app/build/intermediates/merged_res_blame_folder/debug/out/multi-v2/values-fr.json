@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "se.anyro.nfc_reader.app-mergeDebugResources-2:/values-fr/values-fr.xml",
+            "map": [
+                {
+                    "source": "/Users/aecg/AndroidStudioProjects/nfc-reader1/app/src/main/res/values-fr/strings.xml",
+                    "from": {
+                        "startLines": "7,9,8,16,14,17,15,12,13,11,10,18",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "252,1002,301,1476,1366,1522,1412,1245,1308,1113,1043,1586",
+                        "endColumns": "48,40,700,45,45,63,63,62,57,131,69,73",
+                        "endOffsets": "296,1038,997,1517,1407,1581,1471,1303,1361,1240,1108,1655"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,104,145,846,892,938,1002,1066,1129,1187,1319,1389",
+                        "endColumns": "48,40,700,45,45,63,63,62,57,131,69,73",
+                        "endOffsets": "99,140,841,887,933,997,1061,1124,1182,1314,1384,1458"
+                    }
+                }
+            ]
+        }
+    ]
+}

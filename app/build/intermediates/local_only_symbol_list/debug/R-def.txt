@@ -1,0 +1,30 @@
+R_DEF: Internal format may change without notice
+local
+drawable icon
+id list
+id menu_copy_dec
+id menu_copy_hex
+id menu_copy_reversed_dec
+id menu_copy_reversed_hex
+id menu_main_clear
+id menu_main_copy
+id tag_viewer_text
+id text
+id textView
+layout beam
+layout tag_divider
+layout tag_text
+layout tag_viewer
+menu menu_main
+string app_name
+string error
+string intro_message
+string menu_copy_dec
+string menu_copy_hex
+string menu_copy_reversed_dec
+string menu_copy_reversed_hex
+string menu_main_clear_title
+string menu_main_copy
+string nfc_disabled
+string no_nfc
+string nothing_scanned

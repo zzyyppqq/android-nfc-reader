@@ -1,0 +1,24 @@
+apply plugin: 'com.android.application'
+
+android {
+    namespace "se.anyro.nfc_reader"
+    compileSdkVersion 33
+    buildToolsVersion "33.0.1"
+
+    defaultConfig {
+        applicationId "se.anyro.nfc_reader"
+        minSdkVersion 11
+        targetSdkVersion 23
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    implementation files('libs/guavalib.jar')
+}
